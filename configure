@@ -7009,7 +7009,7 @@ $as_echo "$ac_cv_safe_to_define___extensions__" >&6; }
 
   $as_echo "#define _GNU_SOURCE 1" >>confdefs.h
 
-  $as_echo "#define _POSIX_PTHREAD_SEMANTICS 1" >>confdefs.h
+  $as_echo "#define _POSIX_PTHREAD_SEMANTICS 0" >>confdefs.h
 
   $as_echo "#define _TANDEM_SOURCE 1" >>confdefs.h
 
@@ -19952,50 +19952,20 @@ ax_pthread_ok=no
 # First of all, check if the user has set any of the PTHREAD_LIBS,
 # etcetera environment variables, and if threads linking works using
 # them:
-if test "x$PTHREAD_CFLAGS$PTHREAD_LIBS" != "x"; then
-	ax_pthread_save_CC="$CC"
-	ax_pthread_save_CFLAGS="$CFLAGS"
-	ax_pthread_save_LIBS="$LIBS"
-	if test "x$PTHREAD_CC" != "x"; then :
-  CC="$PTHREAD_CC"
-fi
-	CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
-	LIBS="$PTHREAD_LIBS $LIBS"
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_join using $CC $PTHREAD_CFLAGS $PTHREAD_LIBS" >&5
-$as_echo_n "checking for pthread_join using $CC $PTHREAD_CFLAGS $PTHREAD_LIBS... " >&6; }
+
+	CFLAGS="$CFLAGS"
+	LIBS="$LIBS"
+	{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for pthread_join using $CC" >&5
+$as_echo_n "checking for pthread_join using $CC... " >&6; }
 	cat confdefs.h - <<_ACEOF >conftest.$ac_ext
 /* end confdefs.h.  */
 
 /* Override any GCC internal prototype to avoid an error.
    Use char because int might match the return type of a GCC
    builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char pthread_join ();
-int
-main ()
-{
-return pthread_join ();
-  ;
-  return 0;
-}
+
 _ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ax_pthread_ok=yes
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-	{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ax_pthread_ok" >&5
-$as_echo "$ax_pthread_ok" >&6; }
-	if test "x$ax_pthread_ok" = "xno"; then
-		PTHREAD_LIBS=""
-		PTHREAD_CFLAGS=""
-	fi
-	CC="$ax_pthread_save_CC"
-	CFLAGS="$ax_pthread_save_CFLAGS"
-	LIBS="$ax_pthread_save_LIBS"
-fi
+
 
 # We must check for the threads library under a number of different
 # names; the ordering is very important because some systems
@@ -20087,10 +20057,6 @@ esac
 
 # GCC generally uses -pthread, or -pthreads on some platforms (e.g. SPARC)
 
-if test "x$GCC" = "xyes"; then :
-  ax_pthread_flags="-pthread -pthreads $ax_pthread_flags"
-fi
-
 # The presence of a feature test macro requesting re-entrant function
 # definitions is, on some systems, a strong hint that pthreads support is
 # correctly enabled
@@ -20164,7 +20130,7 @@ if test "x$ax_pthread_clang" = "xyes"; then
 	# -pthread does define _REENTRANT, and while the Darwin headers
 	# ignore this macro, third-party headers might not.)
 
-	PTHREAD_CFLAGS="-pthread"
+	PTHREAD_CFLAGS=
 	PTHREAD_LIBS=
 
 	ax_pthread_ok=yes
@@ -20324,8 +20290,8 @@ $as_echo_n "checking for the pthreads library -l$ax_pthread_try_flag... " >&6; }
 
 	ax_pthread_save_CFLAGS="$CFLAGS"
 	ax_pthread_save_LIBS="$LIBS"
-	CFLAGS="$CFLAGS $PTHREAD_CFLAGS"
-	LIBS="$PTHREAD_LIBS $LIBS"
+	CFLAGS="$CFLAGS"
+	LIBS="$LIBS"
 
 	# Check for various functions.  We must include pthread.h,
 	# since some functions may be macros.  (On the Sequent, we
